@@ -3,10 +3,10 @@ import {
   MaterialTopTabNavigationProp,
   createMaterialTopTabNavigator,
 } from '@react-navigation/material-top-tabs'
-import AvailableSurgeriesListScreen from '../../../screens/App/SurgeriesList/AvailableSurgeriesListScreen' 
+import AvailableSurgeriesListScreen from '../../../screens/App/SurgeriesList/AvailableSurgeriesListScreen'
 import MatchSurgeriesListScreen from '../../../screens/App/SurgeriesList/MatchSurgeriesListScreen'
-import MySurgeriesScreen from '../../../screens/App/SurgeriesList/MySurgeriesScreen' 
-import { useAuth } from '../../../hooks/useAuth' 
+import MySurgeriesScreen from '../../../screens/App/SurgeriesList/MySurgeriesScreen'
+import { useAuth } from '../../../hooks/useAuth'
 
 type SurgeryListRoutes = {
   surgeriesListAvailable: undefined
@@ -43,15 +43,14 @@ export default function SurgeryListRoutes() {
         backgroundColor: colors.white,
       }}
     >
-      {occupation === 'surgeon' ? (
-        <Screen
-          name="surgeriesListMy"
-          options={{
-            tabBarLabel: 'Minhas',
-          }}
-          component={MySurgeriesScreen}
-        />
-      ) : null}
+      <Screen
+        name="surgeriesListMy"
+        options={{
+          tabBarLabel: 'Minhas',
+        }}
+        component={MySurgeriesScreen}
+      />
+
 
       <Screen
         name="surgeriesListAvailable"

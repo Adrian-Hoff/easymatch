@@ -4,17 +4,17 @@ import {
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs'
 import { MaterialIcons } from '@expo/vector-icons'
-import { SurgeryProvider } from '../../contexts/SurgeryContext' 
-import StackHeaderAppComponent from '../../components/StackHeaderAppComponent' 
-import { useAuth } from '../../hooks/useAuth' 
-import { ISurgery } from '../../interfaces/App/ISurgery' 
-import DashboardScreen from '../../screens/App/DashboardScreen' 
-import AddSurgeryScreen from '../../screens/App/AddSurgeryScreen' 
-import { SurgeryDetailsRoutes } from './SurgeryDetailsRoutes' 
+import { SurgeryProvider } from '../../contexts/SurgeryContext'
+import StackHeaderAppComponent from '../../components/StackHeaderAppComponent'
+import { useAuth } from '../../hooks/useAuth'
+import { ISurgery } from '../../interfaces/App/ISurgery'
+import DashboardScreen from '../../screens/App/DashboardScreen'
+import AddSurgeryScreen from '../../screens/App/AddSurgeryScreen'
+import { SurgeryDetailsRoutes } from './SurgeryDetailsRoutes'
 import SurgeryRoutes from './SurgeryListRoutes'
-import MatchRequestScreen from '../../screens/App/MatchRequestScreen' 
-import { IMatchRequest } from '../../interfaces/App/IMatchRequest' 
-import { useNavigation } from '@react-navigation/native' 
+import MatchRequestScreen from '../../screens/App/MatchRequestScreen'
+import { IMatchRequest } from '../../interfaces/App/IMatchRequest'
+import { useNavigation } from '@react-navigation/native'
 
 type GeneralAppRoutes = {
   dashboard: undefined
@@ -68,26 +68,22 @@ export function AppRoutes() {
             ),
           }}
         />
-
-        {occupation === 'surgeon' ? (
-          <Screen
-            name="addSurgery"
-            component={AddSurgeryScreen}
-            options={{
-              header: () => (
-                <StackHeaderAppComponent
-                  title="Criar Cirurgia"
-                  subTitle="Preencha os campos abaixo com as informacões da cirurgia que deseja criar"
-                  pb={12}
-                />
-              ),
-              tabBarIcon: ({ color }) => (
-                <Icon as={MaterialIcons} name="add" size={8} color={color} />
-              ),
-            }}
-          />
-        ) : null}
-
+        <Screen
+          name="addSurgery"
+          component={AddSurgeryScreen}
+          options={{
+            header: () => (
+              <StackHeaderAppComponent
+                title="Criar Cirurgia"
+                subTitle="Preencha os campos abaixo com as informacões da cirurgia que deseja criar"
+                pb={12}
+              />
+            ),
+            tabBarIcon: ({ color }) => (
+              <Icon as={MaterialIcons} name="add" size={8} color={color} />
+            ),
+          }}
+        />
         <Screen
           name="surgeries"
           component={SurgeryRoutes}
