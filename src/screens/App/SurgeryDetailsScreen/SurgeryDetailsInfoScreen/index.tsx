@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react'
-import { Box, FlatList, HStack, Text, useTheme, VStack } from 'native-base'
+import { Box, FlatList, HStack, ScrollView, Text, useTheme, VStack } from 'native-base'
 import { collection, onSnapshot, query } from 'firebase/firestore'
-import { useNavigation } from '@react-navigation/native' 
-import { db } from '../../../../config/firebase' 
-import ButtonComponent from '../../../../components/ButtonComponent' 
-import ModalSureComponent from '../../../../components/ModalSureComponent' 
-import { useAuth } from '../../../../hooks/useAuth' 
-import { useSurgery } from '../../../../hooks/useSurgery' 
-import { AppNavigatorRoutesProps } from '../../../../routes/AppRoutes' 
-import { SurgeryDetailsProps } from '../../../../routes/AppRoutes/SurgeryDetailsRoutes' 
+import { useNavigation } from '@react-navigation/native'
+import { db } from '../../../../config/firebase'
+import ButtonComponent from '../../../../components/ButtonComponent'
+import ModalSureComponent from '../../../../components/ModalSureComponent'
+import { useAuth } from '../../../../hooks/useAuth'
+import { useSurgery } from '../../../../hooks/useSurgery'
+import { AppNavigatorRoutesProps } from '../../../../routes/AppRoutes'
+import { SurgeryDetailsProps } from '../../../../routes/AppRoutes/SurgeryDetailsRoutes'
 import InfoBlockComponent from '../components/InfoBlockComponent'
 import ParticipantComponent from '../components/ParticipantComponent'
-import { IUser } from '../../../../interfaces/Auth/IUser' 
+import { IUser } from '../../../../interfaces/Auth/IUser'
 
 export default function SurgeryDetailsInfoScreen({
   route,
@@ -85,7 +85,7 @@ export default function SurgeryDetailsInfoScreen({
   }
 
   return (
-    <Box flex={1} p={6}>
+    <Box p={6}>
       <ModalSureComponent
         isOpen={showModalSureCancel}
         onClose={() => setShowModalSureCancel(false)}
@@ -98,8 +98,8 @@ export default function SurgeryDetailsInfoScreen({
         message="Tem certeza que deseja sair essa cirurgia?"
         confirmButtonAction={handleUnsubscribeAssistant}
       />
-      <VStack space={8} flex={1}>
-        <HStack alignItems="center" justifyContent="space-between">
+      <VStack space={8} >
+        <VStack>
           <Text
             color={colors.primary[400]}
             fontSize={fontSizes.xl}
@@ -114,19 +114,28 @@ export default function SurgeryDetailsInfoScreen({
           >
             {date as string}
           </Text>
-        </HStack>
-        <HStack space={4}>
-          <InfoBlockComponent flex={1} label="Local" content={place} />
-          <InfoBlockComponent
-            flex={1}
-            label="Horário"
-            content={time as string}
-          />
-        </HStack>
-      </VStack>
+        </VStack>
 
-      {occupation === 'surgeon' ? (
-        <VStack space={3} flex={2}>
+        <VStack space={4}>
+          <HStack space={4} >
+            <InfoBlockComponent label="Local" content={place} />
+            <InfoBlockComponent
+              flex={1}
+              label="Horário"
+              content={time as string}
+            />
+          </HStack>
+          <HStack space={4} >
+            <InfoBlockComponent label="Cirurgião" content={authorName} />
+            <InfoBlockComponent
+              flex={1}
+              label="Área"
+              content={areasOfExpertise}
+            />
+          </HStack>
+        </VStack>
+
+        <VStack space={3} >
           <Text
             color={colors.primary[400]}
             fontFamily={fonts.body}
@@ -146,22 +155,16 @@ export default function SurgeryDetailsInfoScreen({
               }}
               ItemSeparatorComponent={() => <Box mt={2} />}
               renderItem={({ item }) => (
+
                 <ParticipantComponent key={item.userId} name={item.name} />
+
+
               )}
             />
           )}
         </VStack>
-      ) : (
-        <HStack space={4} flex={2.5}>
-          <InfoBlockComponent flex={1} label="Cirurgião" content={authorName} />
-          <InfoBlockComponent
-            flex={1}
-            label="Área"
-            content={areasOfExpertise}
-          />
-        </HStack>
-      )}
-      <VStack space={3} pt={8}>
+      </VStack>
+      <VStack space={3} pt={16}>
         {authorId === user?.uid ? (
           <>
             <ButtonComponent title="Editar" isDisabled />
